@@ -32,3 +32,15 @@ build/
 ### VS Code ###
 .vscode/
 .idea/
+
+# Secrets & environment configs
+.env
+application-prod.yml
+application-secret.yml
+
+# H2 database files (diskdə saxlanırsa)
+*.h2.db
+*.mv.db
+
+# JWT sirlərini saxlaya biləcək config-lər (əgər varsa)
+**/JwtProperties.java
