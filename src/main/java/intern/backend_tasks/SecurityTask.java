@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendTasksApplication {
+public class SecurityTask {
 
     public static void main(String[] args) {
-        SpringApplication.run(BackendTasksApplication.class, args);
+        SpringApplication.run(SecurityTask.class, args);
     }
 
 }
