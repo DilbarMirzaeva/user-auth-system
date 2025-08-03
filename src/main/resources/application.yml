@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   datasource:
     url: jdbc:h2:mem:login_db
@@ -21,9 +22,21 @@ spring:
         format_sql: true
     database-platform: org.hibernate.dialect.H2Dialect
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ***REMOVED***
+    password: ***REMOVED***
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 jwt:
   secret: "***REMOVED***"
-  expiration: 3600000 # 1 saat (ms il?)
+  expiration: 3600000 # 1 saat (ms ilə)
 
 springdoc:
   api-docs:
