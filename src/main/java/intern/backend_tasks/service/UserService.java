@@ -15,6 +15,4 @@ public interface UserService {
     ApiResponse forgetPassword(ForgetPasswordRequest forgetPasswordRequest);
 
     void resetPassword(ResetPasswordRequest resetPasswordRequest);
-
-    void logout(String token);
 }
