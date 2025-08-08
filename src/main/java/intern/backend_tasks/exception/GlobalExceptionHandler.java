@@ -2,6 +2,7 @@ package intern.backend_tasks.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -55,6 +56,35 @@ public class GlobalExceptionHandler {
                         .uuid(UUID.randomUUID())
                         .timestamp(LocalDateTime.now())
                         .message(e.getMessage())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<GlobalResponse> exceptionHandling(Exception e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                GlobalResponse.builder()
+                        .error(ErrorMessage.BAD_REQUEST)
+                        .uuid(UUID.randomUUID())
+                        .timestamp(LocalDateTime.now())
+                        .message(e.getMessage())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<GlobalResponse> methodArgumentNotValidHandling(MethodArgumentNotValidException e){
+        String error=e.getBindingResult().getFieldErrors().stream()
+                .map(err->err.getDefaultMessage())
+                .findFirst()
+                .orElse("Validation Error");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                GlobalResponse.builder()
+                        .error(ErrorMessage.METHOD_ARGUMENT_NOT_VALID)
+                        .uuid(UUID.randomUUID())
+                        .timestamp(LocalDateTime.now())
+                        .message(error)
                         .build()
         );
     }
