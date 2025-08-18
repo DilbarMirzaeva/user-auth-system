@@ -23,7 +23,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse updateUser(String email, UpdateUserRequest userRequest) {
+    public UserResponse updateUserByEmail(String email, UpdateUserRequest userRequest) {
+        return null;
+    }
+
+    @Override
+    public UserResponse updateUserById(int id, UpdateUserRequest userRequest) {
         return null;
     }
 

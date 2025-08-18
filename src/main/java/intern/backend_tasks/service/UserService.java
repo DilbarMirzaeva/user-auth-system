@@ -9,8 +9,11 @@ public interface UserService {
     UserResponse getUserById(int id);
     UserResponse getUserByEmail(String email);
     UserResponse getUserByUsername(String username);
-    UserResponse updateUser(String email, UpdateUserRequest userRequest);
     List<UserResponse> getAllUsers();
+
+    UserResponse updateUserByEmail(String email, UpdateUserRequest userRequest);
+    UserResponse updateUserById(int id, UpdateUserRequest userRequest);
+
     void deleteUserById(int id);
     void deleteUserByEmail(String email);
 }
