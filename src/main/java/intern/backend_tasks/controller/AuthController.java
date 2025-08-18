@@ -6,7 +6,7 @@ import intern.backend_tasks.dto.request.RegisterRequest;
 import intern.backend_tasks.dto.request.ResetPasswordRequest;
 import intern.backend_tasks.dto.response.ApiResponse;
 import intern.backend_tasks.dto.response.LoginResponse;
-import intern.backend_tasks.service.impl.UserServiceImpl;
+import intern.backend_tasks.service.impl.AuthServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/auth")
 @RequiredArgsConstructor
 @Validated
-public class UserController {
-    private final UserServiceImpl userService;
+public class AuthController {
+    private final AuthServiceImpl userService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody   LoginRequest loginRequest){
