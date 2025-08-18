@@ -14,16 +14,17 @@ import intern.backend_tasks.exception.InvalidVerificationCodeException;
 import intern.backend_tasks.exception.UserNotFoundException;
 import intern.backend_tasks.security.JwtUtil;
 import intern.backend_tasks.service.EmailService;
-import intern.backend_tasks.service.UserService;
+import intern.backend_tasks.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
@@ -53,6 +54,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registerRequest.getEmail());
         user.setUsername(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+
         userRepository.save(user);
 
         return new ApiResponse("User registered successfully");
@@ -62,9 +64,11 @@ public class UserServiceImpl implements UserService {
     public ApiResponse forgetPassword(ForgetPasswordRequest forgetPasswordRequest) {
         User user=userRepository.findByEmail(forgetPasswordRequest.getEmail())
                 .orElseThrow(()->new UserNotFoundException("User not found with email: "+forgetPasswordRequest.getEmail()));
+
         String verificationCode=generateVerificationCode();
         emailService.sendVerificationEmail(user.getEmail(),verificationCode);
-        user.setVerificationCode(user.getVerificationCode());
+        user.setVerificationCode(verificationCode);
+
         userRepository.save(user);
 
         return new ApiResponse("Verification code sent successfully");
@@ -81,12 +85,13 @@ public class UserServiceImpl implements UserService {
         User user=userRepository.findByEmail(resetPasswordRequest.getEmail())
                 .orElseThrow(()->new UserNotFoundException("User not found with email: "+resetPasswordRequest.getEmail()));
 
-        if(!user.getVerificationCode().equals(resetPasswordRequest.getVerificationCode())){
+        if(!Objects.equals(user.getVerificationCode(), resetPasswordRequest.getVerificationCode())){
             throw new InvalidVerificationCodeException("Invalid verification code");
         }
 
-        user.setPassword(resetPasswordRequest.getNewPassword());
+        user.setPassword(passwordEncoder.encode(resetPasswordRequest.getNewPassword()));
         user.setVerificationCode(null);
+
         userRepository.save(user);
     }
 

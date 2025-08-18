@@ -7,7 +7,7 @@ import intern.backend_tasks.dto.request.ResetPasswordRequest;
 import intern.backend_tasks.dto.response.ApiResponse;
 import intern.backend_tasks.dto.response.LoginResponse;
 
-public interface UserService {
+public interface AuthService {
     LoginResponse login(LoginRequest loginRequest);
 
     ApiResponse register(RegisterRequest registerRequest);
