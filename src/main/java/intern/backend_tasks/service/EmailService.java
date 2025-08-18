@@ -11,11 +11,11 @@ public class EmailService {
 
     private final JavaMailSender javaMailSender;
 
-    public void sendVerificationEmail(String toEmail,String link){
+    public void sendVerificationEmail(String toEmail,String verificationCode){
         SimpleMailMessage message=new SimpleMailMessage();
         message.setTo(toEmail);
         message.setSubject("Verification Email");
-        message.setText("Click the link below to verify your account:\n"+link);
+        message.setText("Your verification code is: " + verificationCode);
         javaMailSender.send(message);
     }
 }
