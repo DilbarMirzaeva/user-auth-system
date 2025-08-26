@@ -1,12 +1,22 @@
 package intern.backend_tasks.service.impl;
 
+import intern.backend_tasks.domain.repository.UserRepository;
 import intern.backend_tasks.dto.request.UpdateUserRequest;
 import intern.backend_tasks.dto.response.UserResponse;
 import intern.backend_tasks.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public UserResponse getUserById(int id) {
         return null;
