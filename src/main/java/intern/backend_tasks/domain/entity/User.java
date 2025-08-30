@@ -1,5 +1,6 @@
 package intern.backend_tasks.domain.entity;
 
+import intern.backend_tasks.domain.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,10 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
     @Column(name = "verification_code")
     private String verificationCode;
