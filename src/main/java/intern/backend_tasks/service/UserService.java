@@ -6,14 +6,11 @@ import intern.backend_tasks.dto.response.UserResponse;
 import java.util.List;
 
 public interface UserService {
-    UserResponse getUserById(int id);
-    UserResponse getUserByEmail(String email);
+    UserResponse getUserById(Long id);
     UserResponse getUserByUsername(String username);
     List<UserResponse> getAllUsers();
 
-    UserResponse updateUserByEmail(String email, UpdateUserRequest userRequest);
-    UserResponse updateUserById(int id, UpdateUserRequest userRequest);
+    UserResponse updateUserById(Long id, UpdateUserRequest userRequest);
 
-    void deleteUserById(int id);
-    void deleteUserByEmail(String email);
+    void deleteUserById(Long id);
 }

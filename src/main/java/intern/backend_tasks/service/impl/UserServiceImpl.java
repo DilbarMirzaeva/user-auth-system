@@ -1,8 +1,11 @@
 package intern.backend_tasks.service.impl;
 
+import intern.backend_tasks.domain.entity.User;
 import intern.backend_tasks.domain.repository.UserRepository;
 import intern.backend_tasks.dto.request.UpdateUserRequest;
 import intern.backend_tasks.dto.response.UserResponse;
+import intern.backend_tasks.exception.UserNotFoundException;
+import intern.backend_tasks.mapper.UserMapper;
 import intern.backend_tasks.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,29 +19,22 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Override
-    public UserResponse getUserById(int id) {
-        return null;
-    }
-
-    @Override
-    public UserResponse getUserByEmail(String email) {
-        return null;
+    public UserResponse getUserById(Long id) {
+        User user=findUser(id);
+        return userMapper.toDto(user);
     }
 
     @Override
     public UserResponse getUserByUsername(String username) {
-        return null;
+        User user=findUser(username);
+        return userMapper.toDto(user);
     }
 
     @Override
-    public UserResponse updateUserByEmail(String email, UpdateUserRequest userRequest) {
-        return null;
-    }
-
-    @Override
-    public UserResponse updateUserById(int id, UpdateUserRequest userRequest) {
+    public UserResponse updateUserById(Long id, UpdateUserRequest userRequest) {
         return null;
     }
 
@@ -48,12 +44,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(int id) {
+    public void deleteUserById(Long id) {
 
     }
 
-    @Override
-    public void deleteUserByEmail(String email) {
-
+    public <T> User findUser(T val){
+        if(val instanceof Long id){
+            return userRepository.findById(id)
+                    .orElseThrow(()->new UserNotFoundException("User not found with id: "+id));
+        }else if (val instanceof String username) {
+            return userRepository.findByUsername(username)
+                    .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
+        }
+        throw new IllegalArgumentException("Unsupported type: " + val.getClass());
     }
 }
