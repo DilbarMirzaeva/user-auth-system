@@ -38,6 +38,10 @@ public class UserServiceImpl implements UserService {
     public UserResponse updateUserById(Long id, UpdateUserRequest userRequest) {
         User user=findUser(id);
         userMapper.updateUser(userRequest,user);
+
+        if(user.getPassword()!=null && !userRequest.getPassword().isBlank()){
+            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        }
         userRepository.save(user);
         return userMapper.toDto(user);
     }
