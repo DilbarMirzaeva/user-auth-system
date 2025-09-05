@@ -29,7 +29,7 @@ public class SecurityTask {
             if(userRepository.findByEmail("admin@admin.com").isEmpty()){
                 User admin=new User();
                 admin.setEmail("admin@admin.com");
-                admin.setPassword(passwordEncoder.encode("admin"));
+                admin.setPassword(passwordEncoder.encode("admin2345"));
                 admin.setUsername("Dilbar");
                 admin.setRole(Role.ADMIN);
                 userRepository.save(admin);
