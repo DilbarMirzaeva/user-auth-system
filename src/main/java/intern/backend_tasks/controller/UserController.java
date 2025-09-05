@@ -38,13 +38,14 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER')and @userServiceImpl.getUserById(#id).email==authentication.name)")
     public ResponseEntity<UserResponse> updateById(@PathVariable Long id,@Valid @RequestBody UpdateUserRequest userRequest){
         return ResponseEntity.ok(userService.updateUserById(id, userRequest));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PreAuthorize("(hasRole('ADMIN') and @userServiceImpl.getUserById(#id).email!=authentication.name)" +
+            "or (hasRole('USER') and @userServiceImpl.getUserById(#id).email==authentication.name)")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
