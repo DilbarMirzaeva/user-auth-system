@@ -1,6 +1,7 @@
 package intern.backend_tasks.service.impl;
 
 import intern.backend_tasks.domain.entity.User;
+import intern.backend_tasks.domain.enums.Role;
 import intern.backend_tasks.domain.repository.UserRepository;
 import intern.backend_tasks.dto.request.ForgetPasswordRequest;
 import intern.backend_tasks.dto.request.LoginRequest;
@@ -55,6 +56,7 @@ public class AuthServiceImpl implements AuthService {
         user.setUsername(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 
+        user.setRole(Role.USER);
         userRepository.save(user);
 
         return new ApiResponse("User registered successfully");
