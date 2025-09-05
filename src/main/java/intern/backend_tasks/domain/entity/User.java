@@ -18,10 +18,10 @@ public class User {
     @SequenceGenerator(name = "user_rq",sequenceName = "user_sequence", allocationSize = 1)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
