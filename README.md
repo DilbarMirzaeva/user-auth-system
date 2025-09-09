@@ -1,11 +1,26 @@
-# User Authentication & Management System
+# 🛡️ Backend Tasks Project - User Authentication & Management
 
-Bu layihə **Spring Boot** ilə hazırlanmış **User Authentication və User Management sistemi**dir. Layihədə JWT əsaslı autentifikasiya, e-mail doğrulama və rol əsaslı icazə mövcuddur.
+A **Spring Boot backend application** for **user registration, login, role-based access control**, **JWT authentication**, and **email-based password reset**. Designed for easy **CRUD operations** on users and secure **role management** (ADMIN vs USER).
 
-##  Funksionallıq
-- **Auth:** Register, Login/Logout, Forgot/Reset Password, JWT token, Email təsdiqi  
-- **User:** CRUD əməliyyatları, profil yeniləmə/silmə, rol əsaslı idarəetmə (Admin/User)  
-- **Security:** JWT ilə qorunan endpointlər və RBAC (Role-Based Access Control)  
+---
 
-##  Texnologiyalar
-Java 17 · Spring Boot 3 · Spring Security · Spring Data JPA (Hibernate) · **H2 Database** · JavaMailSender · JWT
+## 🚀 Key Features
+
+- **User Registration & Login**
+  - New users are automatically assigned the **USER** role.
+  - Only one **ADMIN** exists in the system.
+  - **JWT token** generated upon login for secure API access.
+
+- **Forgot Password & Email Verification**
+  - Sends a **verification code** to user's email for password reset.
+  - Allows **secure password updating** after verification.
+
+- **CRUD Operations**
+  - Full **Create, Read, Update, Delete** functionality for users.
+  - Uses **UserMapper** for **DTO ↔ Entity** conversion.
+
+- **Security**
+  - **JWT token-based authentication** for protected endpoints.
+  - **Role-based access control** for ADMIN vs USER.
+  - Global exception handling with meaningful error responses.
+
