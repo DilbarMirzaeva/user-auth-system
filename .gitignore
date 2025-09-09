@@ -44,3 +44,4 @@ application-secret.yml
 
 # JWT sirlərini saxlaya biləcək config-lər (əgər varsa)
 **/JwtProperties.java
+
